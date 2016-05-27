@@ -1,0 +1,30 @@
+.row
+  .col-md-6
+    %blockquote
+      %h1= @task.title
+      %p= @task.description
+      %footer
+        owner:
+        = @task.creator.email
+      - unless @task.users.blank?
+        %footer
+          workers:
+          = @task.users.map(&:email).to_sentence
+      %br/
+      = link_to 'Back', tasks_path, class: 'btn btn-default'
+      - if @task.users.include?(current_user) || current_user == @task.creator
+        - unless @task.done
+          = link_to 'Complete', done_task_path(@task), method: :put, class: 'btn btn-default'
+        = link_to 'Edit', edit_task_path(@task), class: 'btn btn-default'
+        = link_to 'Destroy', @task, method: :delete, class: 'btn btn-danger', data: { confirm: 'Are u sure?' }
+  .col-md-3
+    - if @task.users.include?(current_user) || current_user == @task.creator
+      = simple_form_for :share, :url => share_task_path, :method => :post do |f|
+        = f.input :email, label: false, placeholder: 'Enter user email'
+        = f.button :submit, 'Share this task with user', class: 'btn btn-primary btn-block'
+  .col-md-3
+    = render 'layouts/activities'
+
+
+
+

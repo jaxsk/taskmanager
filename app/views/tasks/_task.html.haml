@@ -1,0 +1,19 @@
+- @tasks.each  do |task|
+  .panel{class: "panel-#{task.done? ? 'success' : 'warning'}"}
+    .panel-heading
+      %h4
+        = task.title
+        - if task.users.include?(current_user)
+          %span.label.label-warning subscription
+        - elsif current_user == task.creator
+          %span.label.label-primary creator
+        %small.pull-right
+          Updated
+          = "#{time_ago_in_words(task.updated_at)} ago"
+    .panel-body
+      %p= task.description
+    .panel-heading
+      = link_to 'Show', task_path(task), class: "btn btn-default"
+      - if task.users.include?(current_user) || current_user == task.creator
+        = link_to 'Destroy', task, method: :delete, class: "btn btn-default", data: { confirm: "Are u sure?" }
+

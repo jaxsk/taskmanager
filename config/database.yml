@@ -1,0 +1,18 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  pool: 5
+
+development:
+  <<: *default
+  database: listify_development_two
+
+test:
+  <<: *default
+  database: listify_test_two
+
+production:
+  <<: *default
+  database: listify_production_two
+  username: jax
+  password: <%= ENV['DB_DATABASE_PASSWORD'] %>

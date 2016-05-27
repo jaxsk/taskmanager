@@ -1,0 +1,20 @@
+.row
+  .col-md-3
+    = render 'layouts/stats'
+    %hr/
+    - if user_signed_in?
+      %h2.text-center
+        %b Create new task
+
+      = render 'tasks/form'
+
+  .col-md-6#tasklist
+    - if @tasks.empty?
+      There are no tasks yet!
+    - else
+      / = render @tasks
+
+      = render 'task'
+
+  .col-md-3
+    = render 'layouts/activities'

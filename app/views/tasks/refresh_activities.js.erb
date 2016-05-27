@@ -1,0 +1,3 @@
+$('ul.list-group#feed').html("<%= escape_javascript(render partial: 'layouts/activities') %>");
+$('#tasklist').html("<%= escape_javascript(render partial: 'task') %>");
+$('#delegated b').html("<%= current_user.tasks.count %>");

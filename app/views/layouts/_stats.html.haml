@@ -1,0 +1,14 @@
+.card
+  = image_tag('avatar.jpg', size: '250x250')
+  .card-block
+    %h4.card-title.text-center
+      = current_user.email
+  %ul.list-group.list-group-flush
+    %li.list-group-item
+      Tasks created:
+      %b= current_user.create_task_count
+    %li.list-group-item#delegated
+      Tasks delegated from others:
+      %b= current_user.tasks.count
+
+

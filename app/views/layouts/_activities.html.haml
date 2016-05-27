@@ -1,0 +1,15 @@
+%ul.list-group#feed
+  - @activities.each do |activity|
+    %li.list-group-item
+      %span{:class => "glyphicon glyphicon-#{activity.key.match(/\.(.*)/)[1]}"}
+      %small.text-muted= activity.created_at.strftime('%H:%M:%S %-d %B %Y')
+      %br/
+      %strong= activity.owner ? activity.owner.email : 'Guest'
+      = render_activity(activity, display: :i18n)
+      - if activity.trackable
+        = link_to activity.trackable.title, task_path(activity.trackable), class: 'label label-info'
+      - elsif activity.title
+        %span.text-muted
+        = activity.title
+      - else
+        with unknown title.
